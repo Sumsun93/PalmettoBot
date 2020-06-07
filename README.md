@@ -1,4 +1,4 @@
-# issueBot
+# :dragon_face: PalmettoBot :dragon_face:	
 
 ## :sunny: Pré-requis
 * Installation des dépendances :
