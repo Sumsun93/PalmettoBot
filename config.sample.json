@@ -1,7 +1,4 @@
 {
-  "githubToken": "",
   "botDiscordToken": "",
-  "repoGithub": "",
-  "usernameGithub": "",
-  "issueChannelName": ""
+  "adminId": ""
 }

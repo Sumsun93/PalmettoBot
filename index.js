@@ -81,4 +81,4 @@ client.on('message', async msg => {
 
 client.login(config.botDiscordToken);
 
-app.listen(80);
+app.listen(3000);
