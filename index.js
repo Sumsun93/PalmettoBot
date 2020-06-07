@@ -48,13 +48,13 @@ client.on('message', async msg => {
     commands.push({ name: commandName, content: commandContent });
 
     fs.writeFileSync("commands.json", JSON.stringify(commands));
-    msg.reply("Commande ajoutée.");
+    msg.reply(`Commande /${commandName} ajoutée.`);
   }
   else if(msg.content.includes('/delete')) {
     const args = msg.content.split('"');
 
     if (args.length <= 1) {
-      msg.reply('Arguments manquants -> /create "test" "ceci est une commande de test"');
+      msg.reply('Argument manquant -> /delete "test"');
       return;
     }
 
@@ -69,7 +69,7 @@ client.on('message', async msg => {
 
     commands = commands.filter(elmt => elmt.name.toLowerCase() !== commandName.toLocaleLowerCase());
     fs.writeFileSync("commands.json", JSON.stringify(commands));
-    msg.reply("Commande supprimée.");
+    msg.reply(`Commande /${commandName} supprimée.`);
   }
   else if(commands.some(elmt => msg.content.includes(`/${elmt.name}`))) {
     const command = commands.find(elmt => msg.content.includes(`/${elmt.name}`));
