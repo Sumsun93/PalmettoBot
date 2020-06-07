@@ -16,11 +16,23 @@ client.on('ready', async () => {
 // 712258479544598560
 
 client.on('message', async msg => {
-  if (msg.content[0] !== "/" || !msg.member.roles.cache.some(elmt => elmt.id === config.adminId)) {
+  if (msg.content[0] !== "/") {
     return;
   }
 
   let commands = JSON.parse(fs.readFileSync("commands.json"));
+
+  if(commands.some(elmt => msg.content.includes(`/${elmt.name}`))) {
+    const command = commands.find(elmt => msg.content.includes(`/${elmt.name}`));
+
+    const channel = client.channels.cache.find(elmt => elmt.name === msg.channel.name);
+    channel.send(command.content);
+    return;
+  }
+
+  if (!msg.member.roles.cache.some(elmt => elmt.id === config.adminId)) {
+    return;
+  }
 
   if(msg.content.includes('/create')) {
     const args = msg.content.split('"');
@@ -70,12 +82,6 @@ client.on('message', async msg => {
     commands = commands.filter(elmt => elmt.name.toLowerCase() !== commandName.toLocaleLowerCase());
     fs.writeFileSync("commands.json", JSON.stringify(commands));
     msg.reply(`Commande /${commandName} supprimée.`);
-  }
-  else if(commands.some(elmt => msg.content.includes(`/${elmt.name}`))) {
-    const command = commands.find(elmt => msg.content.includes(`/${elmt.name}`));
-
-    const channel = client.channels.cache.find(elmt => elmt.name === msg.channel.name);
-    channel.send(command.content);
   }
 });
 
